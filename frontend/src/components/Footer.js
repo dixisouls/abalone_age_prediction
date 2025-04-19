@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
+import { FaGithub, FaLinkedin } from "react-icons/fa";
 
 const StyledFooter = styled.footer`
   background-color: ${(props) => props.theme.colors.deepBlue};
@@ -99,7 +99,7 @@ const Footer = () => {
             </FooterText>
             <FooterText>
               <a
-                href="https://github.com/dixisouls/abalone"
+                href="https://github.com/dixisouls/abalone_age_prediction"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -123,29 +123,21 @@ const Footer = () => {
               >
                 <FaGithub />
               </SocialLink>
-              <SocialLink
-                href="#"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="LinkedIn"
-              >
-                <FaLinkedin />
-              </SocialLink>
-              <SocialLink
-                href="#"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Twitter"
-              >
-                <FaTwitter />
-              </SocialLink>
             </SocialLinks>
           </FooterSection>
         </FooterContent>
 
         <Copyright>
           &copy; {currentYear} Abalone Age Detection System. All rights
-          reserved.
+          reserved. Made by{" "}
+          <a
+            href="https://divyapanchal.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Divya Panchal
+          </a>
+          .
         </Copyright>
       </FooterContainer>
     </StyledFooter>

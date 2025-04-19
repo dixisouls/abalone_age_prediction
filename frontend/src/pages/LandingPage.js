@@ -247,7 +247,7 @@ const LandingPage = () => {
               </Button>
               <Button
                 as="a"
-                href="https://github.com/dixisouls/abalone"
+                href="https://github.com/dixisouls/abalone_age_prediction"
                 target="_blank"
                 rel="noopener noreferrer"
                 variant="secondary"
@@ -259,7 +259,7 @@ const LandingPage = () => {
           </HeroContent>
           <HeroImage>
             <img
-              src="https://plus.unsplash.com/premium_photo-1681487682765-3ad1a3df7cc8?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3"
+              src="abalone-hero.jpeg"
               alt="Abalone shells on beach"
             />
           </HeroImage>
@@ -298,7 +298,7 @@ const LandingPage = () => {
             </InfoContent>
             <InfoImage>
               <img
-                src="https://images.unsplash.com/photo-1610548575422-f9b57811a1fc?q=80&w=2952&auto=format&fit=crop&ixlib=rb-4.0.3"
+                src="abalone-shell.jpg"
                 alt="Abalone shell"
               />
             </InfoImage>
@@ -307,7 +307,7 @@ const LandingPage = () => {
           <InfoRow imageRight>
             <InfoImage>
               <img
-                src="https://images.unsplash.com/photo-1503602642458-232111445657?q=80&w=2787&auto=format&fit=crop&ixlib=rb-4.0.3"
+                src="abalone-measurement.webp"
                 alt="Measurement tools"
               />
             </InfoImage>
