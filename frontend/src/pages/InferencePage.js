@@ -7,10 +7,11 @@ import LoadingSpinner from "../components/LoadingSpinner";
 import Card from "../components/Card";
 import { predictAge, getModelInfo } from "../utils/api";
 
+// Main container with clear spacing
 const PageContainer = styled.div`
   max-width: ${(props) => props.theme.maxWidth};
   margin: 0 auto;
-  padding: 3rem 1.5rem;
+  padding: 3rem 1.5rem 6rem; // Added padding at the bottom
 `;
 
 const PageHeader = styled.div`
@@ -30,24 +31,29 @@ const PageDescription = styled.p`
   color: ${(props) => props.theme.colors.darkText};
 `;
 
-const TwoColumnLayout = styled.div`
-  display: grid;
-  grid-template-columns: 2fr 1fr;
+// Changed to a single column layout with the form followed by results
+const ContentLayout = styled.div`
+  display: flex;
+  flex-direction: column;
   gap: 2rem;
+`;
 
-  @media (max-width: 992px) {
-    grid-template-columns: 1fr;
-  }
+const FormSection = styled.div`
+  width: 100%;
+`;
+
+const ResultsSection = styled.div`
+  width: 100%;
+  margin-top: 2rem;
+`;
+
+const InfoSection = styled.div`
+  width: 100%;
+  margin-top: 3rem;
 `;
 
 const InfoCard = styled(Card)`
   height: fit-content;
-  position: sticky;
-  top: 100px;
-
-  @media (max-width: 992px) {
-    position: static;
-  }
 `;
 
 const InfoItem = styled.div`
@@ -158,12 +164,17 @@ const InferencePage = () => {
       const predictions = await predictAge(apiData);
       setResult(predictions);
 
-      // Scroll to results
+      // Scroll to results - now directly below the form
       setTimeout(() => {
-        window.scrollTo({
-          top: document.body.scrollHeight,
-          behavior: "smooth",
-        });
+        if (result) {
+          const resultsElement = document.getElementById("prediction-results");
+          if (resultsElement) {
+            resultsElement.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }
+        }
       }, 100);
     } catch (err) {
       setError(`Prediction failed: ${err.message || "Unknown error"}`);
@@ -193,79 +204,85 @@ const InferencePage = () => {
       {loading ? (
         <LoadingSpinner message="Loading model information..." />
       ) : (
-        <TwoColumnLayout>
-          <div>
+        <ContentLayout>
+          <FormSection>
             <PredictionForm onSubmit={handleSubmit} isLoading={predicting} />
+          </FormSection>
 
-            {predicting ? (
+          {predicting ? (
+            <ResultsSection>
               <LoadingSpinner message="Analyzing abalone measurements..." />
-            ) : (
-              result && <ResultDisplay result={result} />
-            )}
-          </div>
+            </ResultsSection>
+          ) : result ? (
+            <ResultsSection id="prediction-results">
+              <ResultDisplay result={result} />
+            </ResultsSection>
+          ) : null}
 
           {modelInfo && (
-            <InfoCard title="Model Information">
-              <InfoItem>
-                <InfoTitle>
-                  <FaInfoCircle />
-                  About the Model
-                </InfoTitle>
-                <p>{modelInfo.description}</p>
-              </InfoItem>
+            <InfoSection>
+              <InfoCard title="Model Information">
+                <InfoItem>
+                  <InfoTitle>
+                    <FaInfoCircle />
+                    About the Model
+                  </InfoTitle>
+                  <p>{modelInfo.description}</p>
+                </InfoItem>
 
-              <InfoItem>
-                <InfoTitle>
-                  <FaChartBar />
-                  Input Parameters
-                </InfoTitle>
-                <InfoTable>
-                  <thead>
-                    <tr>
-                      <th>Parameter</th>
-                      <th>Description</th>
-                      <th>Units</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {modelInfo.input_parameters.map((param, index) => (
-                      <tr key={index}>
-                        <td>{param.name}</td>
-                        <td>{param.description}</td>
-                        <td>{param.units}</td>
+                <InfoItem>
+                  <InfoTitle>
+                    <FaChartBar />
+                    Input Parameters
+                  </InfoTitle>
+                  <InfoTable>
+                    <thead>
+                      <tr>
+                        <th>Parameter</th>
+                        <th>Description</th>
+                        <th>Units</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </InfoTable>
-              </InfoItem>
+                    </thead>
+                    <tbody>
+                      {modelInfo.input_parameters.map((param, index) => (
+                        <tr key={index}>
+                          <td>{param.name}</td>
+                          <td>{param.description}</td>
+                          <td>{param.units}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </InfoTable>
+                </InfoItem>
 
-              <InfoItem>
-                <InfoTitle>
-                  <FaChartBar />
-                  Output Parameters
-                </InfoTitle>
-                <InfoTable>
-                  <thead>
-                    <tr>
-                      <th>Parameter</th>
-                      <th>Description</th>
-                      <th>Units</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {modelInfo.output_parameters.map((param, index) => (
-                      <tr key={index}>
-                        <td>{param.name}</td>
-                        <td>{param.description}</td>
-                        <td>{param.units}</td>
+                <InfoItem>
+                  <InfoTitle>
+                    <FaChartBar />
+                    Output Parameters
+                  </InfoTitle>
+                  <InfoTable>
+                    <thead>
+                      <tr>
+                        <th>Parameter</th>
+                        <th>Description</th>
+                        <th>Units</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </InfoTable>
-              </InfoItem>
-            </InfoCard>
+                    </thead>
+                    <tbody>
+                      {modelInfo.output_parameters.map((param, index) => (
+                        <tr key={index}>
+                          <td>{param.name}</td>
+                          <td>{param.description}</td>
+                          <td>{param.units}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </InfoTable>
+                </InfoItem>
+              </InfoCard>
+            </InfoSection>
           )}
-        </TwoColumnLayout>
+        </ContentLayout>
       )}
     </PageContainer>
   );
