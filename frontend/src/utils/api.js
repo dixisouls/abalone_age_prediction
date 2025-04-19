@@ -1,5 +1,7 @@
-// API base URL - change this to match your backend URL
-const API_BASE_URL = "http://localhost:8000";
+import config from '../config';
+
+// API base URL from config
+const API_BASE_URL = config.apiUrl;
 
 /**
  * Fetch API wrapper with error handling
