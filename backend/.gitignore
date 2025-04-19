@@ -29,10 +29,8 @@ ENV/
 .env
 
 # scikit-learn specific
-*.pkl
 *.joblib
 *.pickle
-models/*.model
 
 # Logs
 logs/
