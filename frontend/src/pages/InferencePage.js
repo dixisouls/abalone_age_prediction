@@ -143,6 +143,19 @@ const InferencePage = () => {
     fetchModelInfo();
   }, []);
 
+  // NEW EFFECT: Scroll to results section when result changes
+  useEffect(() => {
+    if (result) {
+      const resultsElement = document.getElementById("prediction-results");
+      if (resultsElement) {
+        resultsElement.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }
+    }
+  }, [result]);
+
   const handleSubmit = async (formData) => {
     try {
       setPredicting(true);
@@ -164,18 +177,7 @@ const InferencePage = () => {
       const predictions = await predictAge(apiData);
       setResult(predictions);
 
-      // Scroll to results - now directly below the form
-      setTimeout(() => {
-        if (result) {
-          const resultsElement = document.getElementById("prediction-results");
-          if (resultsElement) {
-            resultsElement.scrollIntoView({
-              behavior: "smooth",
-              block: "start",
-            });
-          }
-        }
-      }, 100);
+      // Remove the setTimeout scroll logic - we're using the useEffect hook now
     } catch (err) {
       setError(`Prediction failed: ${err.message || "Unknown error"}`);
       console.error("Error making prediction:", err);
