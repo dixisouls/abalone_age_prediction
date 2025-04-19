@@ -1,70 +1,156 @@
-# Getting Started with Create React App
+# Abalone Age Detector Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A React-based frontend for the Abalone Age Detection System, providing an intuitive interface for submitting abalone measurements and visualizing prediction results.
 
-## Available Scripts
+## Project Structure
 
-In the project directory, you can run:
+```
+frontend/
+├── public/               # Static assets and HTML template
+├── src/                  # Source code
+│   ├── components/       # Reusable UI components
+│   │   ├── Button.js
+│   │   ├── Card.js
+│   │   ├── Footer.js
+│   │   ├── Header.js
+│   │   ├── LoadingSpinner.js
+│   │   ├── PredictionForm.js
+│   │   └── ResultDisplay.js
+│   ├── pages/            # Page components
+│   │   ├── LandingPage.js
+│   │   └── InferencePage.js
+│   ├── utils/            # Utility functions
+│   │   └── api.js        # API client
+│   ├── App.js            # Main application component
+│   ├── GlobalStyle.js    # Global styles
+│   ├── index.js          # Application entry point
+│   └── theme.js          # Theme configuration
+├── package.json          # Dependencies and scripts
+└── README.md             # This file
+```
 
-### `npm start`
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **Responsive Design**: Works on desktop and mobile devices
+- **Interactive UI**: Form with validation for abalone measurements
+- **Visualization**: Clear presentation of prediction results
+- **API Integration**: Seamless communication with the backend API
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Getting Started
 
-### `npm test`
+### Prerequisites
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Node.js 19.x or higher
+- npm or yarn
+- Backend API running (see backend README)
 
-### `npm run build`
+### Installation
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. Install dependencies:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+npm install
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2. Configure the API endpoint (if needed):
 
-### `npm run eject`
+Edit `src/utils/api.js` to set the correct backend API URL:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```javascript
+const API_BASE_URL = "http://localhost:8000"; // Change if needed
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Running the Development Server
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```bash
+npm start
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+This will start the development server and open the application in your default browser at [http://localhost:3000](http://localhost:3000).
 
-## Learn More
+### Building for Production
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```bash
+npm run build
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+This creates an optimized production build in the `build` folder.
 
-### Code Splitting
+## Component Overview
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Key Components
 
-### Analyzing the Bundle Size
+- **PredictionForm**: Form for entering abalone measurements
+- **ResultDisplay**: Visualizes prediction results (rings and age)
+- **Card**: Reusable card container component
+- **Button**: Reusable button component with variants
+- **LoadingSpinner**: Loading indicator for async operations
+- **Header**: Application navigation header
+- **Footer**: Application footer with links
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Pages
 
-### Making a Progressive Web App
+- **LandingPage**: Home page with information about the project
+- **InferencePage**: Page with the prediction form and results display
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### Theme
 
-### Advanced Configuration
+The application uses a styled-components theme defined in `theme.js` with an ocean-inspired color palette:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- Deep Blue (#003366)
+- Teal (#008080)
+- Light Blue (#66b2b2)
+- Coral (#ff7f50)
+- Sand (#f5f5dc)
 
-### Deployment
+## API Integration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+The frontend communicates with the backend API using the functions defined in `src/utils/api.js`:
 
-### `npm run build` fails to minify
+- `checkHealth()`: Check if the API is running
+- `getModelInfo()`: Get information about the model
+- `predictAge(measurements)`: Submit measurements for prediction
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Testing
+
+Run the test suite with:
+
+```bash
+npm test
+```
+
+## Deployment
+
+The application can be deployed to various hosting platforms:
+
+### Static Hosting (e.g., Netlify, Vercel)
+
+1. Build the application:
+```bash
+npm run build
+```
+
+2. Deploy the contents of the `build` directory to your hosting provider
+
+## Customization
+
+### Adding New Components
+
+1. Create a new component file in `src/components/`
+2. Import and use the component as needed
+
+### Modifying the Theme
+
+Edit `src/theme.js` to change colors, fonts, and other theme properties.
+
+## Browser Support
+
+The application supports modern browsers:
+- Chrome (latest)
+- Firefox (latest)
+- Safari (latest)
+- Edge (latest)
+
+## Author
+
+Created by [Divya Panchal](https://github.com/dixisouls)
