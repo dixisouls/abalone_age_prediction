@@ -31,6 +31,13 @@ app.add_middleware(
 # Include routers
 app.include_router(inference.router)
 
+@app.get("/")
+async def root():
+    """
+    Root endpoint for the API.
+    """
+    return {"message": "Welcome to the Abalone Age Predictor API!"}
+
 @app.get("/health")
 async def health_check():
     """
