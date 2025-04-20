@@ -88,8 +88,8 @@ abalone/
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/dixisouls/abalone_age_detection.git
-cd abalone_age_detection
+git clone https://github.com/dixisouls/abalone_age_prediction.git
+cd abalone_age_prediction
 ```
 
 2. Set up and start the application using one of the following methods:
