@@ -11,6 +11,7 @@ on physical measurements. It consists of:
   submission and visualization
 - **ML Model**: Trained scikit-learn MLP Regressor that predicts abalone age
   based on physical characteristics
+- [**Live Demo**](https://abalone-age.vercel.app/)
 
 ## About Abalone Age Prediction
 
