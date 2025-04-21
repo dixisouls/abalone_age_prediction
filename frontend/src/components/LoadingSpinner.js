@@ -39,14 +39,28 @@ const SpinnerContainer = styled.div`
   margin-bottom: 1.5rem;
 `;
 
+// Add a background circle to make the wave icon stand out better
+const IconBackground = styled.div`
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: white;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+`;
+
 const WaveIcon = styled(FaWater)`
   color: ${(props) => props.theme.colors.teal};
-  font-size: 2.5rem;
+  font-size: 2rem;
   animation: ${wave} 1.5s ease-in-out infinite;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  z-index: 10; // Ensure it appears on top of the circles
 `;
 
 const Circle = styled.div`
@@ -76,16 +90,28 @@ const LoadingText = styled.p`
   margin: 0;
 `;
 
-const LoadingSpinner = ({ message = "Processing your data..." }) => {
+const SubText = styled.p`
+  color: ${(props) => props.theme.colors.teal};
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  opacity: 0.8;
+`;
+
+const LoadingSpinner = ({
+  message = "Processing your data...",
+  subMessage,
+}) => {
   return (
     <LoadingWrapper>
       <SpinnerContainer>
         <Circle />
         <Circle />
         <Circle />
+        <IconBackground />
         <WaveIcon />
       </SpinnerContainer>
       <LoadingText>{message}</LoadingText>
+      {subMessage && <SubText>{subMessage}</SubText>}
     </LoadingWrapper>
   );
 };

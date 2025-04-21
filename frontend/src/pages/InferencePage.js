@@ -204,7 +204,10 @@ const InferencePage = () => {
       )}
 
       {loading ? (
-        <LoadingSpinner message="Loading model information..." />
+        <LoadingSpinner
+          message="Waking backend from sleep..."
+          subMessage="This may take a moment as the server initializes"
+        />
       ) : (
         <ContentLayout>
           <FormSection>
@@ -213,7 +216,10 @@ const InferencePage = () => {
 
           {predicting ? (
             <ResultsSection>
-              <LoadingSpinner message="Analyzing abalone measurements..." />
+              <LoadingSpinner
+                message="Analyzing abalone measurements..."
+                subMessage="Our model is calculating the age prediction"
+              />
             </ResultsSection>
           ) : result ? (
             <ResultsSection id="prediction-results">
